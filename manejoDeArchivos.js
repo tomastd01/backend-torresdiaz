@@ -6,18 +6,19 @@ class Container {
         this.content = [];
     }
 
-
     async getAll() {
         try {
-            return this.content;
-        } catch(err) {
+            return fs.readFile(this.fileName, "utf-8", (err, data) => {
+                this.content = JSON.parse(data)
+            })
+        } catch (err) {
             console.log(err)
-        }  
-        
+        }
     }
 
+
     async save(obj) {
-        try {
+        try {;
             let products = this.content;
     
             if (products.length) {
@@ -63,36 +64,3 @@ class Container {
         }
     } 
 }
-
-
-const sw = {title: "Nintendo Switch", price: 200, url: "https://m.media-amazon.com/images/I/41-a+qwZXgL._SX342_SY445_.jpg"};
-const xb = {title: "Xbox Series S", price: 300, url: "https://m.media-amazon.com/images/I/71NBQ2a52CL._SL1500_.jpg"};
-const ps = {title: "Playstation 5", price: 400, url:"https://m.media-amazon.com/images/I/619BkvKW35L._SX466_.jpg"};
-
-
-
-const file = new Container("./products.json")
-
-async function test() {
-    
-    let a = await file.save(sw);
-    let b = await file.save(xb);
-    let c = await file.save(ps);
-    let all = await file.getAll();
-    let objById = await file.getById(2);
-    
-
-
-    console.log(a);
-    console.log(b);
-    console.log(c);
-    console.log(all)
-    await file.deleteById(3)
-    console.log(objById)
-    await file.deleteAll()
-
-    console.log(await file.getAll())
-
-}
-
-test()

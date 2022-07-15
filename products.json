@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "title": "PC",
+    "price": 200,
+    "url": "https://m.media-amazon.com/images/I/41-a+qwZXgL._SX342_SY445_.jpg",
+    "id": 1
+  },
+  {
+    "title": "Xbox Series X",
+    "price": 300,
+    "url": "https://m.media-amazon.com/images/I/71NBQ2a52CL._SL1500_.jpg",
+    "id": 2
+  },
+  {
+    "title": "Playstation 2",
+    "price": 400,
+    "url": "https://m.media-amazon.com/images/I/619BkvKW35L._SX466_.jpg",
+    "id": 3
+  }
+]
