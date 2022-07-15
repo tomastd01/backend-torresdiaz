@@ -1,36 +1,20 @@
-const fs = require("fs/promises");
 const express = require("express");
+const fs = require("fs")
 const app = express();
+const Container = require("./manejoDeArchivos");
+const content = new Container("./products.json");
 
-class Container {
-    constructor(name) {
-        this.fileName = name;
-        this.content = [];
-    }
-
-    async getAll() {
-        try {
-            return fs.readFile(this.fileName, "utf-8", (err, data) => {
-                this.content = JSON.parse(data)
-            })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-}
-
-const file = new Container("./products.json")
 
 app.get("/", (req, res) => {
     res.send("Root route")
 });
 
-app.get("/productos", (req, res) => {
-    res.send(`Productos:\n${file.content}`)
+app.get("/productos", async (req, res) => {
+    res.send(`Productos:\n${await content.getAll()}`)
 })
 
-app.get("/productoRandom", (req, res) => {
-    res.send(`Producto random: \n${file.content[0]}`)
+app.get("/productoRandom", async (req, res) => {
+    res.send(`Producto random: \n${""}`)
 })
 
 const PORT = 8080;
