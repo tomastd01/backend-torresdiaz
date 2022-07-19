@@ -1,5 +1,4 @@
 const express = require("express");
-const fs = require("fs")
 const app = express();
 const Container = require("./manejoDeArchivos");
 const content = new Container("./products.json");
