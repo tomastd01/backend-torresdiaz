@@ -3,12 +3,13 @@ const fs = require("fs/promises");
 module.exports = class Container {
     constructor(name) {
         this.fileName = name;
-        this.content = [];
+        this.content = this.getAll();
     }
 
     async getAll() {
         try {
-            return fs.readFile(this.fileName, "utf8", (err, data) => data)
+            let products = await fs.readFile(this.fileName, "utf8", (err, data) => data);
+            return JSON.parse(products)
         } catch(err) {
             console.log(err)
         }  
@@ -17,7 +18,7 @@ module.exports = class Container {
 
     async save(obj) {
         try {;
-            let products = this.content;
+            let products = await this.content;
 
             if (products.length) {
                 let last = products[products.length - 1]
@@ -36,7 +37,8 @@ module.exports = class Container {
 
     async getById(id) {
         try {
-            return this.content.find(product => product.id == id);
+            let products = await this.content;
+            return products.find(product => product.id == id);
         } catch(err) {
             console.log(err)
         }
@@ -52,14 +54,25 @@ module.exports = class Container {
         }
     }
 
-    async deleteAll() {;
+    async deleteAll() {
         try {
             this.content = []
             await fs.writeFile(this.fileName, JSON.stringify(this.content))
         } catch(err) {
             console.log(err)
         }
-    } 
+    }
+    
+    async getRandom() {
+        try {
+            let products = await this.content;
+            let random = Math.floor(Math.random() * (products.length) + 1);
+            return products[random];
+        } catch(err) {
+            console.log(`Error: ${err}`)
+        }
+    }
+    
 }
 
 /* const sw = {title: "Nintendo Switch", price: 200, url: "https://m.media-amazon.com/images/I/41-a+qwZXgL._SX342_SY445_.jpg"};
@@ -71,15 +84,12 @@ const ps = {title: "Playstation 5", price: 400, url:"https://m.media-amazon.com/
 const file = new Container("./products.json")
 
 async function test() {
-
-    let a = await file.save(sw);
-    let b = await file.save(xb);
-    let c = await file.save(ps);
+   
     let all = await file.getAll();
-    let objById = await file.getById(2);
 
-    let hola = await file.getAll()
+    let hola = await file.getRandom()
     console.log(hola)
 }
 
-test(); */
+test();
+*/
