@@ -16,7 +16,7 @@ routerProductos.get("/", (req,res) => {
 });
 
 routerProductos.get("/:id", (req,res) => {
-    const id = res.params.id;
+    const id = req.params.id;
     const producto = productos.find(producto => producto.id == id);
 
     producto ? res.json(producto) : res.json(error) 
@@ -35,8 +35,9 @@ routerProductos.post("/", (req, res) => {
 });
 
 routerProductos.put("/:id", (req, res) => {
-    const id = res.params.id;
+    const id = req.params.id;
     const producto = req.body;
+    producto.id = id;
     const index = productos.findIndex(producto => producto.id == id);
 
     if (index) {
@@ -47,7 +48,7 @@ routerProductos.put("/:id", (req, res) => {
 });
 
 routerProductos.delete("/:id", (req, res) => {
-    const id = res.params.id;
+    const id = req.params.id;
     const index = productos.findIndex(producto => producto.id == id);
 
     index ? productos.splice(index, 1) : res.json()
