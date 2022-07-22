@@ -6,7 +6,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-const productos = []
+const productos = [];
+const error = {error: "producto no encontrado"};
 
 const routerProductos = Router();
 
@@ -18,23 +19,38 @@ routerProductos.get("/:id", (req,res) => {
     const id = res.params.id;
     const producto = productos.find(producto => producto.id == id);
 
-    if(producto) {
-        res.json(producto)
-    } else {
-        res.json({error: "No hay productos con ese id"}) 
-    };
+    producto ? res.json(producto) : res.json(error) 
 });
 
 routerProductos.post("/", (req, res) => {
+    const producto = req.body;
 
+    if (productos.length) {
+        let last = productos[productos.length - 1]
+        producto.id = last.id + 1;
+    } else producto.id = 1;
+
+    productos.push(producto)
+    res.json(producto)
 });
 
 routerProductos.put("/:id", (req, res) => {
+    const id = res.params.id;
+    const producto = req.body;
+    const index = productos.findIndex(producto => producto.id == id);
 
+    if (index) {
+        productos.splice(index, 1, producto);
+        res.json(producto);
+    } else res.json(error);
+    
 });
 
 routerProductos.delete("/:id", (req, res) => {
+    const id = res.params.id;
+    const index = productos.findIndex(producto => producto.id == id);
 
+    index ? productos.splice(index, 1) : res.json()
 });
 
 
