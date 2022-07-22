@@ -1,15 +1,29 @@
 {
   "dependencies": {
     "express": "^4.18.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^2.0.19"
   },
   "engines": {
-
     "node": "16.13.1"
-    
-    },
+  },
   "scripts": {
-    "start": "nodemon server.js"
-  }
-  
+    "start": "nodemon desafioApiResful.js"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "desafioApiResful.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomastd01/backend-torresdiaz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomastd01/backend-torresdiaz/issues"
+  },
+  "homepage": "https://github.com/tomastd01/backend-torresdiaz#readme",
+  "description": ""
 }
